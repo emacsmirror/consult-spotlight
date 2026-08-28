@@ -68,6 +68,8 @@ Can be either a string, or a list of strings or expressions."
 (defvar consult-spotlight-history nil
   "Minibuffer history for `consult-spotlight'.")
 
+(defvar embark-file-map)
+
 (defun consult-spotlight--onlyin-args (dirs)
   "Return a list of -onlyin arguments for DIRS."
   (mapcan (lambda (dir)
@@ -107,7 +109,9 @@ Can be either a string, or a list of strings or expressions."
 (defun consult-spotlight--read (builder prompt &optional initial)
   "Read a Spotlight result from BUILDER using PROMPT and optional INITIAL."
   (consult--read
-   builder
+   (consult--process-collection builder
+     :min-input consult-spotlight-min-input
+     :highlight t)
    :prompt prompt
    :sort nil
    :require-match t

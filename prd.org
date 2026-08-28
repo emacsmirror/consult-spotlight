@@ -1,0 +1,25 @@
+#+title: consult-spotlight Product Requirements
+
+* Current requirements
+
+- Search macOS Spotlight asynchronously from a Consult minibuffer command.
+- Start searching only after =consult-spotlight-min-input= characters.
+- Present only file-path strings as candidates, with Consult highlighting and preview.
+- Open the selected candidate in Emacs and expose the browser action through Embark.
+- Support a default directory, an interactively selected directory, or a list of directories.
+- Keep Spotlight stderr suppression configurable.
+
+* Requirements that changed
+
+** 2026-08-28: Preserve asynchronous processing with preview
+
+The preview and Embark enhancement had passed the raw command builder to
+=consult--read=.  The reader must instead receive the asynchronous collection
+created by =consult--process-collection= so internal highlighter functions never
+appear as candidates.
+
+* Next steps
+
+- Publish a package revision containing the async-wrapper regression fix.
+- Confirm the updated package is available through MELPA, then update the
+  installed package rather than relying on a live reload.
